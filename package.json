@@ -1,0 +1,45 @@
+{
+  "name": "project",
+  "version": "1.0.9",
+  "description": "Template for opensource ts projects.",
+  "author": "The_C1oud <50553458+dullkingsman@users.noreply.github.com>",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dullkingsman/opensource-ts-template"
+  },
+  "homepage": "https://github.com/dullkingsman/opensource-ts-template#readme",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"./**/*.ts\"",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.3",
+    "@types/node": "^18.11.3",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "husky": "^8.0.2",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format && yarn lint"
+    }
+  },
+  "license": "MIT"
+}
