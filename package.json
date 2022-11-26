@@ -1,20 +1,34 @@
 {
-  "name": "project",
-  "version": "1.0.9",
-  "description": "Template for opensource ts projects.",
+  "name": "pin-on-calendar",
+  "version": "0.0.1",
+  "description": "Event link generator for all major calendar clients",
   "author": "The_C1oud <50553458+dullkingsman@users.noreply.github.com>",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
-  "keywords": [],
+  "keywords": [
+    "calendar",
+    "event",
+    "link",
+    "pin",
+    "google calndar",
+    "outlook calendar",
+    "office365 calendar",
+    "yahoo calendar",
+    "ics"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/dullkingsman/opensource-ts-template"
+    "url": "https://github.com/dullkingsman/pin-on-calendar"
   },
-  "homepage": "https://github.com/dullkingsman/opensource-ts-template#readme",
+  "homepage": "https://github.com/dullkingsman/pin-on-calendar#readme",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"./**/*.ts\"",
     "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "moment": "^2.29.4",
+    "query-string": "^7.1.1"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.3",

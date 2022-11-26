@@ -1,3 +1,3 @@
-# project 
+# pin-on-calendar 
 
-Template for opensource ts projects.
+Event link generator for all major calendar clients.
