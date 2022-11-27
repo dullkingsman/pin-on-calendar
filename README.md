@@ -6,7 +6,6 @@ Event link generator for all major calendar clients.
 
 ```typescript
 import { addToCalendar, getClientLink, downloadIcsFile, getIcsData } from "pin-on-calendar";
-import axiosbridge from "axiosbridge";
 
 const event1 = { 
    title: "Hair cut",
@@ -14,15 +13,15 @@ const event1 = {
 }
 
 const event2 = { 
-    title: "Highschool reunion",
+    title: "College reunion",
     startDate: "2022-12-26T19:02:45.747Z"
 }
 
-addtoCalendar("google", event);
-getClientLink("outlook", event); 
+addToCalendar("google", event); // redirects to google calendar with event data
+getClientLink("outlook", event); // https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent...
 
-downloadIcsFile([event1, event2], "appointments");
-getIcsData([event1, event2])
+downloadIcsFile([event1, event2], "appointments"); // downloads an appointments.ics file
+getIcsData([event1, event2]) // gives an ics file data
 ```
 
 # API
