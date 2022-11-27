@@ -1,23 +1,38 @@
 import * as moment from "moment";
 import { stringify } from "query-string";
-import { Client, Event } from "./types";
+import { Client, Event, Organizer } from "./types";
 import {
   dataUrlFromBlob,
   downloadFromBlob,
   getTextBlobFromString,
 } from "./utils";
 
+/**
+ * Redirects to the specified calendar client.
+ * @param client
+ * @param event
+ */
 export function addToCalendar(client: Client, event: Event) {
   window.open(getClientLink(client, event), "_blank");
 }
 
+/**
+ * Downloads the ICS file.
+ */
 export function downloadIcsFile(events: Array<Event>, fileName?: string) {
   downloadFromBlob(
     getTextBlobFromString(getIcsData(events)),
-    fileName ? fileName : "event.ics"
+    `${fileName ? fileName : "event"}.ics`
   );
 }
 
+/**
+ * Generates the proper link for the provided
+ * client.
+ * ___
+ * N.B. For an `ics` client, this function
+ * will produce a Data URL.
+ */
 export function getClientLink(client: Client, event: Event) {
   return `${getLinkStarter(client)}&${
     client === "ics"
@@ -26,6 +41,9 @@ export function getClientLink(client: Client, event: Event) {
   }`;
 }
 
+/**
+ * Generates the ICS file data.
+ */
 export function getIcsData(events: Array<Event>) {
   return (
     "BEGIN:VCALENDAR\n" +
@@ -133,3 +151,5 @@ function getLinkStarter(client: Omit<Client, "ics">) {
       return `https://outlook.office.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent`;
   }
 }
+
+export { Client, Event, Organizer };
