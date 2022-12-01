@@ -68,7 +68,9 @@ function getParams(client: Client, event: Event): string {
         details: formattedEvent.description,
         location: formattedEvent.location,
         trp: formattedEvent.busy,
-        dates: formattedEvent.startDate + "/" + formattedEvent.endDate,
+        dates: `${formattedEvent.startDate}${
+          formattedEvent.endDate ? `/${formattedEvent.endDate}` : ``
+        }`,
         recur: formattedEvent.rRule && `RRULE:${formattedEvent.rRule}`,
       });
     case "outlook":
@@ -127,14 +129,15 @@ function formatDate(
   }
 ) {
   const microsoft = client === "outlook" || client === "office365";
+  const yahoo = client === "yahoo";
 
   return (
-    microsoft ? moment(new Date(date)) : moment.utc(new Date(date))
+    microsoft || yahoo ? moment(new Date(date)) : moment.utc(new Date(date))
   ).format(
     allDay
       ? "YYYYMMDD"
       : microsoft
-      ? "YYYY-MM-DD[T]HH:mm:ss"
+      ? "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"
       : "YYYYMMDD[T]HHmmss[Z]"
   );
 }
