@@ -1,6 +1,6 @@
 {
   "name": "pin-on-calendar",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Event link generator for all major calendar clients",
   "author": "The_C1oud <50553458+dullkingsman@users.noreply.github.com>",
   "main": "lib/index.js",
