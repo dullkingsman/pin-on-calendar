@@ -7,6 +7,7 @@ import {
   getTextBlobFromString,
 } from "./utils";
 
+/* istanbul ignore next */
 /**
  * Redirects to the specified calendar client.
  * @param client
@@ -16,6 +17,7 @@ export function addToCalendar(client: Client, event: Event) {
   window.open(getClientLink(client, event), "_blank");
 }
 
+/* istanbul ignore next */
 /**
  * Downloads the ICS file.
  */
@@ -35,6 +37,7 @@ export function downloadIcsFile(events: Array<Event>, fileName?: string) {
  */
 export function getClientLink(client: Client, event: Event) {
   return `${getLinkStarter(client)}&${
+    /* istanbul ignore next */
     client === "ics"
       ? dataUrlFromBlob(getTextBlobFromString(getIcsData([event])))
       : getParams(client as Client, event)
@@ -93,13 +96,9 @@ function getParams(client: Client, event: Event): string {
         dur: formattedEvent.allDay ? "allday" : false,
       });
     case "ics":
-      return `${
-        !!formattedEvent.startDate
-          ? `DTSTART:${formattedEvent.startDate}\n`
-          : ""
-      }${!!formattedEvent.endDate ? `DTEND:${formattedEvent.endDate}\n` : ""}${
-        !!formattedEvent.title ? `SUMMARY:${formattedEvent.title}\n` : ""
-      }${
+      return `DTSTART:${formattedEvent.startDate}\n${
+        !!formattedEvent.endDate ? `DTEND:${formattedEvent.endDate}\n` : ""
+      }SUMMARY:${formattedEvent.title}\n${
         !!formattedEvent.description
           ? `DESCRIPTION:${formattedEvent.description}\n`
           : ""
@@ -116,25 +115,26 @@ function getParams(client: Client, event: Event): string {
 function formatEventDates(client: Client, event: Event) {
   return {
     ...event,
-    startDate: event.startDate && formatDate(event.startDate),
+    startDate:
+      event.startDate &&
+      formatDate(event.startDate, { client, allDay: event?.allDay }),
     endDate:
-      event.endDate && !event.allDay ? formatDate(event.endDate) : undefined,
+      event.endDate && !event.allDay
+        ? formatDate(event.endDate, { client, allDay: event?.allDay })
+        : undefined,
   };
 }
 
 function formatDate(
   date: string,
-  { client, allDay }: { client?: Client; allDay?: boolean } = {
-    allDay: false,
-  }
+  config: { client: Client; allDay?: boolean }
 ) {
-  const microsoft = client === "outlook" || client === "office365";
-  const yahoo = client === "yahoo";
+  const microsoft =
+    config.client === "outlook" || config.client === "office365";
+  const yahoo = config.client === "yahoo";
 
-  return (
-    microsoft || yahoo ? moment(new Date(date)) : moment.utc(new Date(date))
-  ).format(
-    allDay
+  return (yahoo ? moment(new Date(date)) : moment.utc(new Date(date))).format(
+    config.allDay
       ? "YYYYMMDD"
       : microsoft
       ? "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"
@@ -149,7 +149,7 @@ function getLinkStarter(client: Omit<Client, "ics">) {
     case "outlook":
       return `https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent`;
     case "yahoo":
-      return `https://calendar.yahoo.com/?v=60&`;
+      return `https://calendar.yahoo.com/?v=60`;
     case "office365":
       return `https://outlook.office.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent`;
   }
