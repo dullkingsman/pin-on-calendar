@@ -1,5 +1,6 @@
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/dullkingsman/pin-on-calendar)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dullkingsman/pin-on-calendar/Release%20package/master)
+[![Coverage Status](https://coveralls.io/repos/github/dullkingsman/pin-on-calendar/badge.svg?branch=master)](https://coveralls.io/github/dullkingsman/pin-on-calendar?branch=master)
 ![GitHub issues](https://img.shields.io/github/issues/dullkingsman/pin-on-calendar)
 ![npm](https://img.shields.io/npm/dw/pin-on-calendar)
 
